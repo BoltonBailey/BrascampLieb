@@ -27,4 +27,5 @@ lemma Finset.sum_sub_succ_cancel {α n} [AddCommGroup α] (f : Fin (n + 1) → �
     simp only [Fin.succ_mk, i.1.sub_one_add_one (by omega), ← Fin.eq_mk_iff_val_eq.2 rfl,
       Fin.castSucc_mk]
     simp_rw [← Fin.val_one n', ← Fin.sub_val_of_le hi', ← Fin.eq_mk_iff_val_eq.2 rfl]
-    rw [add_sub, sub_add_cancel]
+    rw [add_sub]
+    grind

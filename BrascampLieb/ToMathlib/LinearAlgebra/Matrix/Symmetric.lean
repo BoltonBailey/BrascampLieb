@@ -2,6 +2,7 @@ import Mathlib.LinearAlgebra.Matrix.Symmetric
 import Mathlib.LinearAlgebra.Matrix.Adjugate
 import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
 
+-- Merged?
 lemma Matrix.IsSymm.adjugate {n R : Type*} [DecidableEq n] [Fintype n] [CommRing R] {A : Matrix n n R}
     (hA : A.IsSymm) : A.adjugate.IsSymm := by
   rw [IsSymm, adjugate_transpose, hA.eq]

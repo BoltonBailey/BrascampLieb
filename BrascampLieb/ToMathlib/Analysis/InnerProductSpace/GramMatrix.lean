@@ -4,6 +4,11 @@ import Mathlib.Analysis.InnerProductSpace.GramMatrix
 import Mathlib.Analysis.Matrix.Order
 import Mathlib.Data.Real.CompleteField
 
+@[simp] lemma Fintype.card_univ_diff_singleton {α : Type*} [Fintype α] [DecidableEq α] (a : α) :
+    Fintype.card ↑(Set.univ \ ({a} : Set α)) = Fintype.card α - 1 := by
+  refine (Fintype.card_congr ?_).trans (Set.card_ne_eq a)
+  exact Equiv.subtypeEquiv (Equiv.refl α) (fun x => by simp)
+
 namespace Matrix
 
 lemma gram_not_PosDef_det {E I : Type*} [Fintype I] [DecidableEq I]
@@ -30,6 +35,8 @@ lemma det_gram_eq_prod_infDist {E I : Type*} [NormedAddCommGroup E] [InnerProduc
       simpa +zetaDelta using ⟨ne_of_gt, fun h ↦ lt_of_le_of_ne
         (Finset.min'_le _ i (Finset.mem_univ _)) (Ne.symm h)⟩
     have hnJ : Fintype.card J = n := by simp [hJ1, Finset.filter_ne', hn]
+      -- update to
+      -- simp [hJ1, hn]
     specialize IH (Set.restrict J v) hnJ
     let v₀ := v i₀
     let S := Submodule.span ℝ (v '' J)
@@ -39,6 +46,12 @@ lemma det_gram_eq_prod_infDist {E I : Type*} [NormedAddCommGroup E] [InnerProduc
     suffices (Matrix.gram ℝ v).det = (inner ℝ u u) * (Matrix.gram ℝ (J.restrict v)).det by
       set f := fun i ↦ Metric.infDist (v i) ↑(Submodule.span ℝ (v '' (Set.Ioi i))) ^ 2
       rw [this, IH]
+      -- update to
+      -- have IH' :
+      --     (gram ℝ (J.restrict v)).det
+      --     =  ∏ i, Metric.infDist (J.restrict v i) ↑(Submodule.span ℝ (J.restrict v '' Set.Ioi i)) ^ 2 := by
+      --   convert IH
+      -- rw [this, IH']
       simp only [inner_self_eq_norm_sq_to_K, hu, v₀, Real.ringHom_apply, Set.restrict_apply]
       conv_lhs => enter [2, 2, j, 1, 2, 1, 2]; calc _
         _ = v '' (J ∩ Set.Ioi j) := Set.ext fun x ↦ by
@@ -56,8 +69,10 @@ lemma det_gram_eq_prod_infDist {E I : Type*} [NormedAddCommGroup E] [InnerProduc
           conv_rhs => rw [← (Set.Ioi i.1).coe_toFinset]
           exact congr(SetLike.coe $(Finset.erase_eq_of_notMem <| by
             simpa using Finset.min'_le _ i.1 (by simp)))
-      rw [Finset.prod_attach (Finset.univ.erase i₀) f, Finset.erase_eq,
-        ← Finset.prod_eq_mul_prod_diff_singleton (by simp) f]
+      rw [Finset.prod_attach (Finset.univ.erase i₀) f, Finset.erase_eq]
+      rw [← Finset.prod_eq_mul_prod_diff_singleton (by simp) f]
+      -- update to
+      -- rw [← Finset.prod_eq_mul_prod_diff_singleton i₀ f (by simp)]
     clear * - u hJ1
     by_cases hw1 : LinearIndependent ℝ (J.restrict v)
     · let e : {i : I | i = i₀} ⊕ {i : I | ¬(i = i₀)} ≃ I := Equiv.sumCompl (· = i₀)
