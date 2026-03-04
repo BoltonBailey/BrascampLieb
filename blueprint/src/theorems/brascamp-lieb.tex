@@ -1,0 +1,342 @@
+\chapter{The Brascamp-Lieb Inequalities}
+
+\section{Brascamp-Lieb data}
+
+A \emph{Brascamp-Lieb datum} is a tuple
+$$\mathcal{D}=(H, (H_{j})_{j\in J}, (\ell_j)_{j \in J}, (q_{j})_{j \in J}) $$
+where $J$ is a finite index set, $H$ and $H_{j}$ are finite dimensional real Hilbert spaces (a.k.a. Euclidean spaces), $\ell_{j} : H \to H_{j}$ are
+linear maps from $H$ to $H_{j}$, and $q_{j}>0$ are positive real numbers. Below, we simply write
+$$\mathcal{D}=((\ell_j)_{j \in J}, (q_{j})_{j \in J})$$
+and keep implicit the notation $H,H_{j}$.
+
+A localised regularised Brascamp-Lieb datum is a triple $(\mathcal{D}, \mathcal{R}, T)$ where
+$\mathcal{D} = ((\ell_j)_{j \in J}, (q_j)_{j \in J})$ is a Brascamp-Lieb datum,
+$\mathcal{R} = (R_{j})_{j \in J}$ is a collection such that each $R_j$ is a positive definite symmetric endomorphism of $H_j$
+and $T$ is a positive definite symmetric endomorphism of $H$.
+
+
+\section{Brascamp-Lieb constants}
+
+The \emph{gaussian Brascamp-Lieb constant} of $\mathcal{D}$ is
+\begin{equation*}
+\mathrm{BL}_{\mathbf{g}}(\mathcal{D}) = \sup_{A_{j}} \left(\frac{ \prod_{j}(\det A_{j})^{q_{j}}}{\det(\sum_{j} q_{j} \ell_{j}^*A_{j}\ell_{j} )}\right)^{1/2},
+\end{equation*}
+where $A_j$ ranges through all positive definite symmetric endomorphisms of $H_j$, for each $j \in J$.
+
+
+The \emph{gaussian localised regularised Brascamp-Lieb constant} of $(\mathcal{D}, \mathcal{R}, T)$ is
+\begin{equation*}
+\mathrm{BL}_{\mathbf{g}}(\mathcal{D}, \mathcal{R}, T)
+= \sup_{0<A_{j}\leq R_{j}} \left(\frac{ \prod_{j}(\det A_{j})^{q_{j}}}{\det(T+\sum_{j} q_{j} \ell_{j}^*A_{j}\ell_{j} )}\right)^{1/2},
+\end{equation*}
+where $0 < A_j \leq R_j$ means $A_j$ is ranging through all positive definite symmetric endomorphisms of $H_j$ such that $R_j - A_j$ is positive semi-definite, for each $j \in J$.
+
+The \emph{Brascamp-Lieb constant} of $\mathcal{D}$ is the smallest constant $\mathrm{BL}(\mathcal{D})\in [0, +\infty]$ such that
+\begin{equation*}%\label{def-BL-cst}
+\int_{H} \prod_{j \in J} (f_{j}\circ \ell_{j})^{q_{j}} \leq \mathrm{BL}(\mathcal{D}) \prod_{j \in J} \left(\int_{H_{j}} f_{j} \right)^{q_{j}},
+\end{equation*}
+for all collections $(f_{j})_{j \in J}$ of measurable functions $f_j  \colon H_{j} \rightarrow \R_{\geq 0}$.
+
+The \emph{localised regularised Brascamp-Lieb constant} of $(\mathcal{D}, \mathcal{R}, T)$ is the smallest number $\mathrm{BL}_{\mathbf{g}}(\mathcal{D}, \mathcal{R}, T)\in [0,+\infty]$ such that
+\[
+\int_{H} e^{-\pi \langle x, T x \rangle} \prod_{j \in J} (f_{j}\circ \ell_{j})^{q_{j}}(x) \,\mathrm{d} x \leq \mathrm{BL}(\mathcal{D}, \mathcal{R}, T) \prod_{j \in J} \left(\int_{H_{j}} f_{j} \right)^{q_{j}},
+\]
+for all collections $(f_{j})_{j \in J}$ such that $f_j :  H_{j}\rightarrow \R_{\geq 0}$ is of type $R_j$ for each $j \in J$.
+
+
+\begin{definition}[Essential rank]\label{def-ess-rank}
+Let $H,H'$ be Euclidean spaces, let $\ell:H\rightarrow H'$ be a linear map, let $\alpha \geq 0$.
+The  \emph{$\alpha$-essential rank} of $\ell$ is the number (counted with multiplicity) of  singular values of $\ell$ that are strictly greater than $\alpha$. We denote it by $\mathrm{rk}_\alpha(\ell)$.
+For a given subspace $W \subseteq H$, we write
+\[
+\mathrm{rk}_\alpha(\ell \mid W) = \mathrm{rk}_\alpha( \ell_{\mid W})
+\]
+for the $\alpha$-essential rank of $\ell$ restricted to $W$.
+\end{definition}
+
+\begin{definition}[Essential acuity] \label{def-acuity}
+Let $\vec{\alpha}=(\alpha_{j})_{j\in J} \in \R_{\geq 0}^J$, and $W\subseteq H$ a subspace. The \emph{$\vec{\alpha}$-essential acuity of $\mathcal{D}$ within $W$} is
+$$\mathrm{Ac}_{\vec{\alpha}}(\mathcal{D} \mid W) = \sum_{j\in J} q_{j} \mathrm{rk}_{\alpha_{j}}(\ell_{j} \mid W).$$
+We write also
+$$\mathrm{Ac}(\mathcal{D})=\sum_{j\in J}q_{j}\dim H_{j}.$$
+\end{definition}
+
+\begin{definition}[Metric perceptivity]
+Given $\vec{\alpha}\in \R_{\geq0}^J$, $\beta\in \R_{\geq0}$, we say $\mathcal{D}$ is \emph{$(\vec{\alpha}, \beta)$-perceptive}  if for every subspace $W\subseteq H$, we have
+\begin{equation}\label{def-alpha-beta-percep}
+\dim W \leq \mathrm{Ac}_{\vec{\alpha}}(\mathcal{D} \mid W) + \beta.
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Generalised Lieb's theorem {\cite{BCCT08}}] \label{general-Liebthm}
+Let $(\mathcal{D},\mathcal{R}, T)$ be a localised regularised Brascamp-Lieb datum.
+Then
+\begin{equation}\label{gaussian-upp}
+\mathrm{BL}(\mathcal{D}, \mathcal{R}, T) = \mathrm{BL}_{\mathbf{g}}(\mathcal{D}, \mathcal{R}, T)
+\end{equation}
+\end{theorem}
+As a corollary, we have
+\[
+\mathrm{BL}(\mathcal{D}) = \mathrm{BL}_{\mathbf{g}}(\mathcal{D})
+\]
+for any Brascamp-Lieb datum $\mathcal{D}$.
+
+\section{Effective estimates}
+
+
+The following is a reformulation of [Theorem 1.4, Bénard-He].
+\begin{theorem}[Upper bound]
+\label{thm:BL_local_regular_upper_bound}
+\lean{BrascampLieb.upperBound}
+\uses{lem:essential_rank_eq, lem:Choleski, lem:M_pos_def, lem:greedy_set_properties, lem:hadamard_bound, lem:telescoping_eigenvalues}
+Let $(\mathcal{D},\mathcal{R}, T)$ be a  localised regularised Brascamp-Lieb datum, let  $\vec{\alpha} \in \R_{>0}^J$ and $\beta \in \R_{\geq 0}$. Assume $\mathcal{D}$ is $(\vec{\alpha}, \beta)$-perceptive and  $\mathrm{rk}_{\alpha_j}(\ell_j) = \dim H_j$ for each $j \in J$.
+Then, writing $d = \dim H$, we have
+\begin{equation}\label{eq:rlub}
+\mathrm{BL}_{\mathbf{g}}(\mathcal{D}, \mathcal{R}, T)
+\leq d^{\frac{\mathrm{Ac}(\mathcal{D})}{2}}  \mathcal{E}(\mathcal{D}) \prod_{j \in J} \alpha_j^{-q_j \dim H_j} N(\mathcal{D}, \mathcal{R}, T)^{\frac{\mathrm{Ac}(\mathcal{D})-d+\beta}{2}} \norm{T^{-1}}^{\frac{\beta}{2}}.
+\end{equation}
+where $\mathcal{E}(\mathcal{D}) = \prod_{j \in J} q_j^{-q_j  \dim H_j / 2}$ and $N(\mathcal{D}, \mathcal{R}, T) =  \norm{T + \sum_{j} q_j \ell^* R_j \ell_j}$.
+\end{theorem}
+
+\begin{proof}
+We first reduce to the case where $\alpha_j = 1$ for all $j \in J$. Indeed, note that for each $j \in J$ and every $W \in \mathrm{Gr}(H)$, we have
+$\mathrm{rk}_1( \alpha_j^{-1} \ell_j \mid W) = \mathrm{rk}_{\alpha_j}(\ell_j \mid W)$.
+Therefore the datum $\mathcal{D}':=\bigl((\alpha_j^{-1} \ell_j)_j, (q_j)_j\bigr)$ is $((1,\dotsc,1), \beta)$-perceptive and satisfies $\mathrm{rk}_1( \alpha_j^{-1} \ell_j)=\dim H_{j}$ for all $j$.
+By a simple change of variables, we also have
+$$\mathrm{BL}_{\mathbf{g}}(\mathcal{D}, \mathcal{R}, T)=\prod_{j\in J} \alpha_{j}^{-q_{j}\dim H_{j}} \mathrm{BL}_{\mathbf{g}}(\mathcal{D}', \mathcal{R}', T)$$
+ where $\mathcal{R}'=(\alpha_{j}^2 R_{j})_{j\in J}$, and $N(\mathcal{D}, \mathcal{R}, T)=N(\mathcal{D}', \mathcal{R}', T)$.
+It is thus sufficient to prove the theorem for $\mathcal{D}=\mathcal{D}'$, whence the reduction to $\vec{\alpha}=(1,\dotsc,1)$.
+
+Inject the definition and taking the squares, our goal is to show
+\begin{equation}
+\label{eq:rlub1}
+\frac{\prod_{j\in J} (\det A_{j})^{q_{j}} }{\det(T + \sum_{j \in J} q_j \ell_j^* A_{j}\ell_j)}\leq d^{\mathrm{Ac}(\mathcal{D})}  \mathcal{E}(\mathcal{D})^2 N(\mathcal{D}, \mathcal{R}, T)^{\mathrm{Ac}(\mathcal{D})-d+\beta} \norm{T^{-1}}^{\beta}
+\end{equation}
+% we just need to control the supremum \eqref{gaussian-upp} concerning Gaussian inputs
+for all positive definite symmetric endomorphisms $A_j \in \mathrm{End}(H_j)$ satisfying $A_j \leq R_j$.
+
+Let $M := T+ \sum_{j\in J} q_{j} \,\ell^*_{j} A_{j}\ell_{j} \in \mathrm{End}(H)$.
+By Lemma \ref{lem:M_pos_def}, $M$ is symmetric and positive definite.
+Let $(e_1, \dotsc, e_d)$ be an orthonormal basis of $H$ in which the matrix of $M$ is diagonal, with diagonal entries $\lambda_{1}\geq \dots \geq \lambda_{d}>0$.
+For a set of indices $I \subset \set{1, \dotsc, d}$, we write
+\[
+V_I = \mathrm{Span} \set{ e_i : i \in I}.
+\]
+For $k \in \set{0,\dotsc, d-1}$, we abbreviate
+\(
+V_{> k} = V_{\set{k+1, \dotsc, d}}.
+\)
+
+For each $j \in J$, we construct an index subset $I_j \subset \set{1, \dotsc, d}$ satisfying
+\begin{equation}
+\label{eq:Ij}
+\forall i \in I_{j}, \quad \mathrm{dist}(\ell_j e_i, \ell_j V_{I_j \cap (i,d] }) \geq \frac{1}{\sqrt{d}},
+\end{equation}
+\begin{equation}\label{eq:Ij2nd}
+\forall i \in \set{1, \dotsc, d},\quad \mathrm{dist}(\ell_j e_i, \ell_j V_{I_j \cap [i,d]}) < \frac{1}{\sqrt{d}}.
+\end{equation}
+This construction is done inductively (Greedy construction).
+First, we put $d$ in $I_j$ if and only if $\norm{\ell_j e_d} \geq \frac{1}{\sqrt{d}}$.
+This determines $I_j \cap (d-1,d]$.
+Then for each integer $i < d$, starting from $d - 1$, suppose the intersection $I_j \cap (i, d]$ is determined.
+We put $i$ in $I_j$ if \eqref{eq:Ij} holds, and we skip $i$ and proceed to $i - 1$ otherwise.
+This procedure terminates when $i$ reaches $0$, and yields a set $I_{j}$ satisfying \eqref{eq:Ij}, \eqref{eq:Ij2nd}.
+
+
+We derive further properties of the sets $I_{j}$ using Lemma \ref{lem:greedy_set_properties}. First, for all $k\in \set{0, \dotsc, d - 1}$, we have
+\begin{equation}\label{Ij-percep-estimate}
+\sum_{j\in J} q_{j} \abs{I_j \cap (k, d] }  \geq d - k - \beta.
+\end{equation}
+To see that, note that by \eqref{eq:Ij2nd}, we have
+\begin{equation*}%\label{ellVk}
+\ell_j B_{1}^{V_{> k}} \subset \ell_j V_{I_j \cap (k,d]} + B^H_{1}.
+\end{equation*}
+In view of Lemma \ref{lem:essential_rank_eq}, this implies
+\begin{equation}\label{ellVk}
+\mathrm{rk}_1(\ell_j \mid V_{> k}) \leq \dim V_{I_j \cap (k, d]} = \abs{I_j \cap (k, d]}.
+\end{equation}
+Summing over $j \in J$ and using the assumption of perceptivity, the claim \eqref{Ij-percep-estimate} follows.
+
+
+We also see that $|I_{j}|=\dim H_{j}$. Indeed, taking $k=0$ in \eqref{ellVk} and recalling $\mathrm{rk}_{1}(\ell_j) = \dim H_j$ by hypothesis, we obtain $\dim H_j \leq \abs{I_j}$.
+By Lemma \ref{lem:greedy_set_properties} (volume bound) which relies on \eqref{eq:Ij}, we have
+\begin{equation}\label{eq:detellj}
+\norm{\wedge_{i\in I_{j}}\ell_{j}e_{i} } = \prod_{i \in I_j} \mathrm{dist}\bigl(\ell_j e_i, \ell_j V_{I_j \cap (i,d]}\bigr) \geq d^{-\frac{\abs{I_j}}{2}},
+\end{equation}
+and in particular $\abs{I_j} \leq \dim H_j$.
+%and using again that the $\ell_{j}$'s are orthogonal projectors,
+Therefore $\abs{I_j}=\dim H_{j}$. Note the argument shows that $(\ell_{j}e_{i})_{i\in I_{j}}$ is a basis of $H_{j}$. By definition of $\mathrm{Ac}(\mathcal{D})$, we also have
+\begin{equation}\label{Ij-cardinal}
+\sum_{j}q_{j} \abs{I_{j}} = \mathrm{Ac}(\mathcal{D}).
+\end{equation}
+
+
+We deduce upper bounds on the determinants of the $A_{j}$.
+Given $j \in J$, and $i\in I_j$, we have
+\begin{equation}\label{bnd-scalar-prod}
+{\langle A_{j}\ell_{j}e_{i},  \ell_{j} e_{i}\rangle} = {\langle \ell_{j}^*A_{j}\ell_{j}e_{i}, e_{i}\rangle} \leq \frac{1}{q_j} {\langle M e_{i}, e_{i}\rangle} \leq \frac{\lambda_i}{q_j}.
+\end{equation}
+Employing Lemma~\ref{eq:Choleski} and Lemma \ref{lem:hadamard_bound}, then \eqref{eq:detellj} and \eqref{bnd-scalar-prod}, we deduce
+\begin{align*}
+{\det A_{j}} & \leq \norm{\wedge_{i\in I_{j}}\ell_{j}e_{i} }^{-2} \prod_{i\in I_{j}}{\langle A_{j}\ell_{j}e_{i},  \ell_{j} e_{i}\rangle}\\
+&\leq \Bigl(\frac{d}{q_j}\Bigr)^{\abs{I_j}} \prod_{i\in I_{j}}\lambda_{i}.
+\end{align*}
+
+Taking power $q_{j}$, then the product over $j$, and using \eqref{Ij-cardinal}, we get
+\begin{equation} \label{eqproddetAj}
+\prod_{j\in J} (\det A_{j})^{q_{j}} \leq
+d^{\mathrm{Ac}(\mathcal{D})}\mathcal{E}(\mathcal{D})^2
+\prod_{i=1}^d{\lambda_{i}}^{\sum_{j \in J} q_{j}\abs{I_{j}\cap \{i\}}}.
+\end{equation}
+%Observing that the map $t\mapsto t^{-t}$ is uniformly bounded on $(0, +\infty]$, we have $q_{j}^{-q_{j}\dim L_{j}}=O_{d}(1)$. Hence we can remove the term $\prod_{j}q_{j}^{-q_{j}\dim L_{j}}$ in \eqref{eqproddetAj} up to increasing the implicit constant in $\ll_{d}$.
+We now bound the product on the eigenvalues $\lambda_{i}$.
+Using Lemma \ref{lem:telescoping_eigenvalues} which relies on telescoping and the properties \eqref{Ij-percep-estimate} and \eqref{Ij-cardinal} of $I_{j}$, we have
+\begin{align}
+ \prod_{i=1}^d{\lambda_{i}}^{\sum_{j}q_{j}\abs{I_{j} \cap \{i\}}}
+ &= \lambda_{1}^{\sum_{j}q_{j}\abs{I_j}}\prod_{k=1}^{d-1} \left(\frac{\lambda_{k+1}}{\lambda_k}\right)^{\sum_{j}q_{j}\abs{I_{j}\cap (k,d]} } \nonumber\\
+ &\leq \lambda_{1}^{\mathrm{Ac}(\mathcal{D})}\prod_{k=1}^{d-1} \left(\frac{\lambda_{k+1}}{\lambda_k}\right)^{d-k-\beta} \nonumber\\
+ &=\lambda_{1}^{\mathrm{Ac}(\mathcal{D})-d+1+\beta} \lambda_{2}\lambda_{3}\dotsm \lambda_{d-1} \lambda_{d}^{1-\beta} \nonumber\\
+ &= \lambda_{1}^{\mathrm{Ac}(\mathcal{D})-d+\beta} \lambda_{d}^{-\beta}  \det M. \label{eqprodlambdai}
+ \end{align}
+Equations \eqref{eqproddetAj} and \eqref{eqprodlambdai} together yield
+$$
+\frac{\prod_{j\in J} (\det A_{j})^{q_{j}} }{{\det M}}\leq d^{\mathrm{Ac}(\mathcal{D})}\mathcal{E}(\mathcal{D})^2
+\lambda_{1}^{\mathrm{Ac}(\mathcal{D})-d+\beta} \lambda_{d}^{-\beta}.
+$$
+
+Now since the Gaussian input $(A_j)_j$ is dominated by $(R_j)_j$
+we have $\lambda_{1}\leq N(\mathcal{D}, \mathcal{R}, T)$.
+On the other hand, $\lambda_{d} \geq \norm{T^{-1}}^{-1}$.
+This concludes the proof of \eqref{eq:rlub1}.
+\end{proof}
+
+\section{Lemmas}
+
+The following is an equivalent definition of the essential rank.
+For a Euclidean space $W$ and a radius $\rho \geq 0$, we denote by $B_\rho^W$ the \emph{closed} centered ball of radius $\rho$ in $W$.
+In particular, $B^W_0 = \{0\}$.
+\begin{lemma}
+\label{lem:essential_rank_eq}
+\lean{LinearMap.EssentialRank_eq_geometric}
+For $\alpha \in \R_{\geq 0}$, $\ell \in \mathrm{Hom}(H,H')$,  $W \in \mathrm{Gr}(H)$, we have
+\[
+\mathrm{rk}_{\alpha}(\ell \mid W) = \min \set{\dim E \,:\, E \in \mathrm{Gr}(H') \text{ with } \ell \bigl(B^W_1\bigr) \subseteq B^{H'}_\alpha + E}.
+\]
+Moreover, the minimum is realized by some $E$ of the form $E=\ell(V)$ where $V\in\mathrm{Gr}(W)$ satisfies $\ell_{|W}(V^\perp)\subseteq E^\perp$ and $\norm{\ell_{|W\cap V^\perp}} \leq \alpha$.
+\end{lemma}
+
+\begin{proof}
+We need to show that $r=\widetilde r$ where
+\[
+r:=\mathrm{rk}_\alpha(\ell_{|W})  \quad \quad \widetilde{r}:=\min \set{\dim E \,:\, E \in \mathrm{Gr}(H') \text{ with } \ell \bigl(B^W_1\bigr) \subseteq B^{H'}_\alpha + E}.
+\]
+
+By the singular decomposition of $\ell_{|W} : H \to H'$, there is an orthonormal basis $(w_1, \dotsc, w_k)$ of $W$ such that the $(\ell w_i)_{1\leq i \leq k}$ are pairwise orthogonal and
+\[
+\sigma_1 := \norm{\ell w_1} \geq \dots \geq \sigma_k :=\norm{\ell w_k}
+\]
+are the singular values of $\ell_{|w}$, decreasingly ordered.
+By definition of the essential rank $r$, we have $\sigma_i > \alpha$ for $1 \leq i \leq r$ while $\sigma_i \leq \alpha$ for $r + 1 \leq i \leq k$.
+
+On the one hand, for $E_0 := \mathrm{Span}\{\ell w_1, \dotsc, \ell w_r \}$, we have
+\(
+\ell(B_1^W) \subset B^{H'}_\alpha + E_0,
+\)
+leading to $\widetilde r \leq \dim E_0 = r $.
+
+On the other hand, we observe that
+$$\ell(B^W_{1})\supseteq \ell(B^{\mathrm{Span}(w_{1}, \dots, w_{r})}_{1}) \supseteq B^{E_{0}}_{\sigma_{r}}.$$
+As $\sigma_{r}>\alpha$, we obtain that $\ell(B^W_{1})$ cannot be included in  $B_\alpha^{H'} + E$ for some $E\in \mathrm{Gr}(H')$ with dimension $\dim E<\dim E_{0}$. Therefore $\widetilde{r}\geq r$.
+\end{proof}
+
+
+\begin{lemma}
+\label{lem:Choleski}
+Let $H$ be a Euclidean space, let $Q\in \mathrm{End}(H)$ be a positive semi-definite symmetric endomorphism,  let  $(\eps_{1}, \dots, \eps_{d})$ be a basis of $H$.
+Then
+\begin{equation*}
+\det Q \leq \|\eps_{1}\wedge \dots \wedge \eps_{d}\|^{-2}\prod_{k=1}^d \langle Q \eps_{k}, \eps_{k}\rangle.
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+If  $(\eps_{1}, \dots, \eps_{d})$ is an orthonormal basis, then $\|\eps_{1}\wedge \dots \wedge \eps_{d}\|=1$ and the result follows by  the Choleski decomposition, which states  that $Q=F^*F$ where $F$ is upper triangular in the basis $(\eps_{1}, \dots, \eps_{d})$. For the general case, we  write $(\eps_{1}, \dots, \eps_{d})=A(\eps'_{1}, \dots, \eps'_{d})$ where $A\in \mathrm{GL}_{d}(\R)$ and the $\eps'_{i}$ form an orthonormal basis. We then have
+$$\det Q = (\det A)^{-2}\det A^*Q A \leq \norm{\eps_{1}\wedge \dots \wedge \eps_{d}}^{-2} \prod_{k=1}^d \langle A^*Q A \eps'_{k}, \eps'_{k}\rangle,$$
+hence the result.
+\end{proof}
+
+\section{Additional Formalization Lemmas}
+
+The following lemmas are added to support the formalization of the main theorem in Mathlib.
+
+\begin{lemma}[Positivity of M]
+\label{lem:M_pos_def}
+\lean{LinearMap.IsPosDef.add}
+Let $T$ be a positive definite symmetric endomorphism of $H$, and for each $j \in J$, let $A_j$ be a positive definite symmetric endomorphism of $H_j$. Let $q_j > 0$. Then the operator
+$$M := T + \sum_{j \in J} q_j \ell_j^* A_j \ell_j$$
+is positive definite and symmetric. Consequently, there exists an orthonormal basis of $H$ consisting of eigenvectors of $M$ with strictly positive eigenvalues.
+\end{lemma}
+
+\begin{proof}
+Since $A_j$ is positive definite, it is self-adjoint and has positive eigenvalues. The congruence transform $\ell_j^* A_j \ell_j$ is positive semi-definite. Since $q_j > 0$, the sum $\sum q_j \ell_j^* A_j \ell_j$ is positive semi-definite. $T$ is strictly positive definite. The sum of a positive definite operator and a positive semi-definite operator is positive definite. Self-adjointness follows from the self-adjointness of each term. The spectral theorem for self-adjoint operators on finite-dimensional spaces guarantees the existence of the orthonormal eigenbasis.
+\end{proof}
+
+\begin{definition}[Greedy Index Set]
+\label{def:greedy_sets}
+Let $(e_1, \dots, e_d)$ be a fixed basis of $H$. For a linear map $\ell: H \to H'$ and a threshold $\epsilon > 0$, we define the \emph{greedy index set} $I \subseteq \{1, \dots, d\}$ inductively from $d$ down to $1$.
+Let $I_{>k} = I \cap \{k+1, \dots, d\}$.
+We include $k \in I$ if and only if
+$$\mathrm{dist}(\ell e_k, \mathrm{span}\{\ell e_i \mid i \in I_{>k}\}) \ge \epsilon$$
+where $\mathrm{dist}(v, S)$ denotes the orthogonal distance from vector $v$ to subspace $S$.
+\end{definition}
+
+\begin{lemma}[Properties of Greedy Sets]
+\label{lem:greedy_set_properties}
+\uses{lem:essential_rank_eq}
+Let $I_j$ be the greedy index set constructed for $\ell_j$ with respect to the basis $(e_k)_k$ and threshold $\epsilon = 1/\sqrt{d}$.
+\begin{enumerate}
+    \item \textbf{Volume Lower Bound:} The wedge product of the images of the selected basis vectors satisfies:
+    $$\| \bigwedge_{k \in I_j} \ell_j e_k \| \ge \epsilon^{|I_j|}$$
+    \item \textbf{Rank Control:} For any $k \in \{0, \dots, d-1\}$, let $V_{>k} = \mathrm{span}\{e_{k+1}, \dots, e_d\}$. Then the $1$-essential rank of $\ell_j$ restricted to $V_{>k}$ is bounded by the number of selected indices in the tail:
+    $$\mathrm{rk}_{1}(\ell_j \mid V_{>k}) \le |I_j \cap (k, d]|$$
+    provided $\epsilon = 1/\sqrt{d}$ (since $\sum_{i=1}^d \epsilon^2 = 1$).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+1. By the definition of the greedy set, for every $k \in I_j$, the vector $\ell_j e_k$ has a component orthogonal to the span of the previously selected vectors (those with index $> k$) with norm at least $\epsilon$. The norm of the wedge product is the product of these orthogonal heights, hence $\ge \epsilon^{|I_j|}$.
+
+2. For any vector $v \in V_{>k}$ with $\|v\| \le 1$, we can expand $v = \sum_{m=k+1}^d c_m e_m$. The image $\ell_j v$ can be approximated by elements in the span of $\ell_j(\{e_i \mid i \in I_j, i > k\})$. Specifically, for any $m \notin I_j$ ($m > k$), $\ell_j e_m$ is within distance $\epsilon$ of the span of $\ell_j(I_j \cap (m, d])$. Summing these approximations (and noting $\sum c_m^2 \le 1$ and $\epsilon = 1/\sqrt{d}$), one can show the image of the unit ball of $V_{>k}$ lies within a radius 1 neighborhood of the subspace spanned by $\{\ell_j e_i \mid i \in I_j, i > k\}$. By Lemma \ref{lem:essential_rank_eq}, the 1-essential rank is at most the dimension of this subspace, which is $|I_j \cap (k, d]|$.
+\end{proof}
+
+\begin{lemma}[Hadamard Determinant Bound]
+\label{lem:hadamard_bound}
+\uses{lem:Choleski}
+Let $A$ be a positive definite operator on $H_j$, and let $v_1, \dots, v_m$ be linearly independent vectors in $H_j$. Then
+$$\det A \le \| v_1 \wedge \dots \wedge v_m \|^{-2} \prod_{k=1}^m \langle A v_k, v_k \rangle$$
+where $m = \dim H_j$.
+\end{lemma}
+
+\begin{proof}
+This is a direct restatement of Lemma \ref{lem:Choleski} applied to the space $H_j$ with the specific basis vectors $v_k = \ell_j e_{i_k}$ for $i_k \in I_j$.
+\end{proof}
+
+\begin{lemma}[Telescoping Product Inequality]
+\label{lem:telescoping_eigenvalues}
+Let $\lambda_1 \ge \dots \ge \lambda_d > 0$ be a non-increasing sequence. Let $c_{j,k} \in \{0, 1\}$ be indicators such that for each $k$, $\sum_{j \in J} q_j \sum_{m=k+1}^d c_{j,m} \ge d - k - \beta$. Then:
+$$\prod_{j \in J} \left( \prod_{k=1}^d \lambda_k^{c_{j,k}} \right)^{q_j} \le \lambda_1^{\sum q_j |I_j| - d + \beta} \lambda_d^{-\beta} \left( \prod_{k=1}^d \lambda_k \right)$$
+where $|I_j| = \sum_k c_{j,k}$.
+\end{lemma}
+
+\begin{proof}
+Let $P$ be the product on the LHS. We can rewrite $P = \prod_{k=1}^d \lambda_k^{p_k}$ where $p_k = \sum_{j \in J} q_j c_{j,k}$.
+We normalize by the determinant $\prod \lambda_k$:
+$$\frac{P}{\prod \lambda_k} = \prod_{k=1}^d \lambda_k^{p_k - 1}$$
+Using Abel summation (telescoping) on the exponents with $\mu_k = \ln \lambda_k$:
+$$\sum_{k=1}^d (p_k - 1) \mu_k = (S_d)\mu_d + \sum_{k=1}^{d-1} S_k (\mu_k - \mu_{k+1})$$
+where $S_k = \sum_{m=1}^k (p_m - 1)$.
+Alternatively, working from the tail sums as in the main proof:
+Let $T_k = \sum_{m=k+1}^d p_m$. The condition given is $T_k \ge d - k - \beta$.
+Note that $\sum_{m=1}^d (p_m - 1) = \sum p_m - d$.
+The exponent of $\lambda_1$ will collect the total weight. The crucial step is using the monotonicity $\lambda_k \ge \lambda_{k+1}$ (so $\ln \lambda_k - \ln \lambda_{k+1} \ge 0$) to bound the telescoping sum using the lower bounds on the tail sums of weights.
+\end{proof}
